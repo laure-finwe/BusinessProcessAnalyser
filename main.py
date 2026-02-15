@@ -69,12 +69,14 @@ def run_process_advisor():
                 instructions=(
                     "You are a Business Process Analysis expert. "
                     "Analyse the provided process description and extract the following four items:\n"
-                    "1. Current process steps (list them in order).\n"
-                    "2. Bottlenecks or inefficiencies you can identify.\n"
-                    "3. Tools, systems, or resources currently involved.\n"
-                    "4. Missing information – what else would you need to fully understand the process?\n\n"
-                    "Present your findings in clear sections with the exact headings: "
-                    "'Process Steps', 'Bottlenecks', 'Tools Involved', 'Missing Information'."
+                    "1. Current process steps – list them in order as a numbered list.\n"
+                    "2. Bottlenecks or inefficiencies – identify what slows down or disrupts the process.\n"
+                    "3. Tools, systems, or resources currently involved – e.g., software, equipment, manual methods.\n"
+                    "4. Missing information – what additional details would you need to fully understand the process?\n\n"
+                    "Present your findings in exactly four sections with the following headings: "
+                    "'Process Steps', 'Bottlenecks', 'Tools Involved', 'Missing Information'. "
+                    "If any category has no items, explicitly state 'None identified' under that heading. "
+                    "Do not add any extra commentary outside these sections."
                 )
             )
 
@@ -84,14 +86,16 @@ def run_process_advisor():
                 name="process_optimization_advisor",
                 instructions=(
                     "You are a Process Optimization Advisor. "
-                    "Based on the analysis provided, recommend improvements covering:\n"
-                    "• Automation opportunities – which steps could be automated and with what technology.\n"
-                    "• Elimination of redundant steps – identify steps that add no value.\n"
-                    "• Clearer ownership – who should be responsible for each step.\n"
-                    "• Feasibility constraints – technical, organisational, or cost limitations.\n\n"
-                    "Format your recommendations with the exact headings: "
+                    "Based on the analysis provided, recommend improvements covering exactly four categories:\n"
+                    "1. Automation opportunities – which steps could be automated and with what technology.\n"
+                    "2. Elimination of redundant steps – identify steps that add no value and could be removed.\n"
+                    "3. Clearer ownership – who should be responsible for each step or area.\n"
+                    "4. Feasibility constraints – technical, organisational, or cost limitations to consider.\n\n"
+                    "Present your recommendations in exactly four sections with the following headings: "
                     "'Automation Opportunities', 'Elimination of Redundant Steps', "
-                    "'Clearer Ownership', 'Feasibility Constraints'."
+                    "'Clearer Ownership', 'Feasibility Constraints'. "
+                    "If any category has no items, explicitly state 'None identified' under that heading. "
+                    "Do not add any extra commentary outside these sections."
                 )
             )
 
@@ -114,12 +118,17 @@ def run_process_advisor():
                     "You are a Process Automation Orchestrator. "
                     "The user has already provided a process description. "
                     "Your job is to:\n"
-                    "1. Call the 'process_analysis_agent' to analyse the process.\n"
-                    "2. Take that analysis and give it to the 'process_optimization_advisor' to generate recommendations.\n"
+                    "1. Call the 'process_analysis_agent' to analyse the process. It will return four sections: "
+                    "'Process Steps', 'Bottlenecks', 'Tools Involved', 'Missing Information'.\n"
+                    "2. Take that analysis and give it to the 'process_optimization_advisor' to generate recommendations. "
+                    "It will return four sections: 'Automation Opportunities', 'Elimination of Redundant Steps', "
+                    "'Clearer Ownership', 'Feasibility Constraints'.\n"
                     "3. Present the final output with two main sections: "
                     "'PROCESS ANALYSIS' and 'OPTIMIZATION RECOMMENDATIONS'. "
-                    "Use clear headings and bullet points for readability.\n\n"
-                    "Do not ask for additional information – use only the provided process description."
+                    "Under 'PROCESS ANALYSIS', include the four sub-sections from the analysis agent exactly as provided. "
+                    "Under 'OPTIMIZATION RECOMMENDATIONS', include the four sub-sections from the optimization advisor exactly as provided. "
+                    "Do not add any additional commentary or merge sections. "
+                    "If any of the required eight sub-sections are missing, you must explicitly note the deficiency and ask the user to rerun."
                 ),
                 tools=[t_analysis.definitions[0], t_optimizer.definitions[0]]
             )
